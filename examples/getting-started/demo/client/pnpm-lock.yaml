@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@solana/kora':
-        specifier: file:../../../../sdks/ts
-        version: file:../../../../sdks/ts
       '@solana-program/compute-budget':
         specifier: ^0.8.0
         version: 0.8.0(@solana/kit@2.3.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(ws@8.18.3))
@@ -29,6 +26,9 @@ importers:
       '@solana/kit':
         specifier: ^2.3.0
         version: 2.3.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(ws@8.18.3)
+      '@solana/kora':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@solana/transaction-confirmation':
         specifier: ^2.3.0
         version: 2.3.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(ws@8.18.3)
@@ -204,9 +204,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@solana/kora@file:../../../../sdks/ts':
-    resolution: {directory: ../../../../sdks/ts, type: directory}
-
   '@solana-program/compute-budget@0.8.0':
     resolution: {integrity: sha512-qPKxdxaEsFxebZ4K5RPuy7VQIm/tfJLa1+Nlt3KNA8EYQkz9Xm8htdoEaXVrer9kpgzzp9R3I3Bh6omwCM06tQ==}
     peerDependencies:
@@ -312,6 +309,9 @@ packages:
     engines: {node: '>=20.18.0'}
     peerDependencies:
       typescript: '>=5.3.3'
+
+  '@solana/kora@0.1.0':
+    resolution: {integrity: sha512-/Ycpq8XROKmv7NxVQb7vGk0IYGUr1us1Aa4fm/+sByDXya8/KkIhWfiXqUW8B+QON5T87eznyQ5KHPtlskbSRg==}
 
   '@solana/nominal-types@2.3.0':
     resolution: {integrity: sha512-uKlMnlP4PWW5UTXlhKM8lcgIaNj8dvd8xO4Y9l+FVvh9RvW2TO0GwUO6JCo7JBzCB0PSqRJdWWaQ8pu1Ti/OkA==}
@@ -588,8 +588,6 @@ snapshots:
   '@esbuild/win32-x64@0.25.9':
     optional: true
 
-  '@solana/kora@file:../../../../sdks/ts': {}
-
   '@solana-program/compute-budget@0.8.0(@solana/kit@2.3.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(ws@8.18.3))':
     dependencies:
       '@solana/kit': 2.3.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(ws@8.18.3)
@@ -726,6 +724,8 @@ snapshots:
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
       - ws
+
+  '@solana/kora@0.1.0': {}
 
   '@solana/nominal-types@2.3.0(typescript@5.9.2)':
     dependencies:

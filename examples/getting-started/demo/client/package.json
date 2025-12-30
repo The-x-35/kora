@@ -5,7 +5,8 @@
   "scripts": {
     "start": "tsx src/quick-start.ts",
     "full-demo": "tsx src/full-demo.ts",
-    "init-env": "tsx src/setup.ts"
+    "init-env": "tsx src/setup.ts",
+    "check-balances": "tsx check-requirements.ts"
   },
   "keywords": [
     "solana",

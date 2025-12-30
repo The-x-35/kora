@@ -23,7 +23,6 @@ import {
   MicroLamports,
   appendTransactionMessageInstructions,
 } from "@solana/kit";
-import { getAddMemoInstruction } from "@solana-program/memo";
 import { createRecentSignatureConfirmationPromiseFactory } from "@solana/transaction-confirmation";
 import { updateOrAppendSetComputeUnitLimitInstruction, updateOrAppendSetComputeUnitPriceInstruction } from "@solana-program/compute-budget";
 import dotenv from "dotenv";
@@ -35,9 +34,10 @@ const CONFIG = {
   computeUnitLimit: 200_000,
   computeUnitPrice: 1_000_000n as MicroLamports,
   transactionVersion: 0,
-  solanaRpcUrl: "http://127.0.0.1:8899",
-  solanaWsUrl: "ws://127.0.0.1:8900",
-  koraRpcUrl: "http://localhost:8080/",
+  // Use mainnet RPC from environment or default to localhost for devnet
+  solanaRpcUrl: process.env.SOLANA_RPC_URL || process.env.RPC_URL || "http://127.0.0.1:8899",
+  solanaWsUrl: process.env.SOLANA_WS_URL || (process.env.RPC_URL ? process.env.RPC_URL.replace("http://", "ws://").replace("https://", "wss://") : "ws://127.0.0.1:8900"),
+  koraRpcUrl: process.env.KORA_RPC_URL || "http://localhost:8080/",
 };
 
 async function getEnvKeyPair(envKey: string) {
@@ -99,32 +99,15 @@ async function createInstructions(
 
   // Create token transfer (will initialize ATA if needed)
   const transferTokens = await client.transferTransaction({
-    amount: 10_000_000, // 10 USDC (6 decimals)
+    amount: 100_000, // 0.1 USDC (6 decimals)
     token: paymentToken,
-    source: testSenderKeypair.address,
-    destination: destinationKeypair.address, // todo replace with a generated address to test ata creation
-  });
-  console.log("  ✓ Token transfer instruction created");
-
-  // Create SOL transfer
-  const transferSol = await client.transferTransaction({
-    amount: 10_000_000, // 0.01 SOL (9 decimals)
-    token: "11111111111111111111111111111111", // SOL mint address
     source: testSenderKeypair.address,
     destination: destinationKeypair.address,
   });
-  console.log("  ✓ SOL transfer instruction created");
-
-  // Add memo instruction
-  const memoInstruction = getAddMemoInstruction({
-    memo: "Hello, Kora!",
-  });
-  console.log("  ✓ Memo instruction created");
+  console.log("  ✓ Token transfer instruction created");
 
   const instructions = [
     ...transferTokens.instructions,
-    ...transferSol.instructions,
-    memoInstruction,
   ];
 
   console.log(`  → Total: ${instructions.length} instructions`);
